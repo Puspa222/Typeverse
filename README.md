@@ -85,10 +85,5 @@ We welcome contributions! To contribute:
 5. Push to the branch (`git push origin feature/YourFeature`).
 6. Open a Pull Request.
 
-## License
 
-This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
 
----
-
-Feel free to customize this README to better fit your project's specific details and requirements.
