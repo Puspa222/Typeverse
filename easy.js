@@ -201,7 +201,7 @@ function highs(s) {
   if (localStorage.getItem("hwpm") < s) {
     localStorage.setItem("hwpm", s);
   }
-  hw.innerHTML = s;
+  hw.innerHTML = localStorage.getItem("hwpm");
 }
 h[txt.length].setAttribute("class", "untype active");
 

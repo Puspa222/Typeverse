@@ -354,7 +354,7 @@ console.log("Calculating...")
 
 
 
-   for(i=0;i<cw.length;i++){
+    for(i=0;i<cw.length;i++){
     if(cw[i].className=="c wordc"||cw[i].className=="c wordi"||cw[i].className=="c wi wordi"){
 worc=worc+1;
 if(worc>twor){
@@ -388,7 +388,7 @@ function highs(s){
     if(localStorage.getItem("hwpm")<s){
  localStorage.setItem("hwpm",s)
     }
-  hw.innerHTML=s;
+  hw.innerHTML=localStorage.getItem("hwpm");
 
 }
 h[txt.length].setAttribute("class","untype active");
