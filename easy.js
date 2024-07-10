@@ -29,22 +29,16 @@ for (i = 0; i < 15; i++) {
     d = c[k].split("");
     tarea.innerHTML += "<span class='word'>";
     for (j = 0; j < d.length; j++) {
-      tarea.innerHTML += "<letter class='untype'>" + d[j] + "</letter>";
+      tarea.innerHTML += `<letter class='untype'>${d[j]}</letter>`;
     }
     if (k == c.length - 1) {
       tarea.innerHTML += "</span>";
     } else {
-      tarea.innerHTML += "<letter class='untype'>" + "\t" + "</letter>";
+      tarea.innerHTML += `<letter class='untype'>\t</letter>`;
       tarea.innerHTML += "</span>";
     }
   }
-  tarea.innerHTML +=
-    "<letter class='untype'>" +
-    "." +
-    "</letter>" +
-    "<letter class='untype'>" +
-    "\t" +
-    "</letter>";
+  tarea.innerHTML += `<letter class='untype'>.</letter><letter class='untype'>\t</letter>`;
   tarea.innerHTML += "</span>";
 }
 
@@ -58,17 +52,17 @@ let txt = "";
 
 function findKeyPressed(event) {
   if (start == 1) {
-    if (event.key == "Backspace") {
+    if (event.key === "Backspace") {
       txt = txt.slice(0, -1);
       h[txt.length].setAttribute("class", "untype active");
       h[txt.length + 1].setAttribute("class", "untype");
-    } else if (event.key == " ") {
+    } else if (event.key === " ") {
       txt += " ";
       for (i = txt.length - 1; i < txt.length; i++) {
-        if (event.key == tarea.innerText[i]) {
+        if (event.key === tarea.innerText[i]) {
           wco();
         } else {
-          if (event.key == " ") {
+          if (event.key === " ") {
             wio(0);
           } else {
             wio(1);
@@ -80,10 +74,10 @@ function findKeyPressed(event) {
     } else {
       txt += event.key;
       for (i = txt.length - 1; i < txt.length; i++) {
-        if (event.key == tarea.innerText[i]) {
+        if (event.key === tarea.innerText[i]) {
           co();
         } else {
-          if (tarea.innerText[i] == " ") {
+          if (tarea.innerText[i] === " ") {
             io(0);
           } else {
             io(1);
@@ -92,12 +86,11 @@ function findKeyPressed(event) {
       }
     }
   } else {
-    if (event.key == "Enter" && end == 0) {
+    if (event.key === "Enter" && end === 0) {
+      start = 1;
       starttime();
       ins.setAttribute("class", "instruction hidden");
       tarea.setAttribute("class", "type");
-
-      start = 1;
     }
   }
 }
@@ -131,28 +124,26 @@ function wio(b) {
 t = document.getElementById("time");
 count = 60;
 function starttime() {
-  if (count >= 0) {
-    setInterval(timer, 1000);
-  }
-}
-function timer() {
-  count--;
-  if (count < -1) {
-  } else if (count == -1) {
-    start = 0;
-    end = 1;
-    cal();
-    // corr.innerText=correct;
-    // inco.innerText=incorrect;
-    wpm.innerHTML = correct;
-    highs(correct);
-    acc.innerText = parseInt((ccc * 100) / (ccc + iii)) + "%";
-    res.setAttribute("class", "result update");
-    tarea.setAttribute("class", "type dem hidden");
-    ins.setAttribute("class", "instruction rel");
-    ins.innerHTML = "Refresh the browser to restart.";
-  } else {
-    t.innerText = count;
+  const interval = setInterval(timer, 1000);
+  function timer() {
+    count--;
+    if (count < -1) {
+      clearInterval(interval);
+    } else if (count === -1) {
+      start = 0;
+      end = 1;
+      cal();
+      wpm.innerHTML = correct;
+      highs(correct);
+      acc.innerText = parseInt((ccc * 100) / (ccc + iii)) + "%";
+      res.setAttribute("class", "result update");
+      tarea.setAttribute("class", "type dem hidden");
+      ins.setAttribute("class", "instruction rel");
+      ins.innerHTML = "Refresh the browser to restart.";
+      clearInterval(interval);
+    } else {
+      t.innerText = count;
+    }
   }
 }
 let hw = document.querySelector(".hwpm");
@@ -164,7 +155,7 @@ let iii = 0;
 let ccc = 0;
 let twor = 0;
 function cal() {
-  console.log("Calculating...");
+
   let cw = document.querySelectorAll(`.word~.c,.word~.i`);
 
   for (i = 0; i < cw.length; i++) {
@@ -195,7 +186,7 @@ function cal() {
     }
   }
 
-  console.log("Calculation complete");
+ 
 }
 function highs(s) {
   if (localStorage.getItem("hwpm") < s) {

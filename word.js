@@ -215,8 +215,25 @@ let txt = "";
 
 function findKeyPressed(event) {
     if(start==1){
-   
-    if(event.key == 'Backspace'){
+        if(event.key.length==1 && event.key!=" "){
+            txt += event.key;
+            for(i=txt.length-1;i<txt.length;i++){
+        if(event.key==tarea.innerText[i]){
+        
+            co();
+           }
+           else{
+            
+         if(tarea.innerText[i]==' '){
+        io(0)
+         }else{
+        
+             io(1);
+            }
+           }
+              } 
+             }
+   else if(event.key == 'Backspace'){
         txt = txt.slice(0,-1);
         h[txt.length].setAttribute("class","untype active");
         h[txt.length+1].setAttribute("class","untype");
@@ -252,24 +269,7 @@ if(event.key==tarea.innerText[i]){
      txt=txt;
     }
 
-   else{
-    txt += event.key;
-    for(i=txt.length-1;i<txt.length;i++){
-if(event.key==tarea.innerText[i]){
-
-    co();
-   }
-   else{
-    
- if(tarea.innerText[i]==' '){
-io(0)
- }else{
-
-     io(1);
-    }
-   }
-      } 
-     }
+   
 }
 else{
      if(event.key=="Enter"&& end==0){
