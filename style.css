@@ -10,7 +10,16 @@ nav{
     background-color: rgb(31, 34, 31);
     display: flex;
     font-size: larger;
+    padding-left: 2px;
+    padding-right: 22px;
+    justify-content: space-between;
+}
+.cont{
+    display: flex;
     justify-content: center;
+    align-items: center;
+   
+
 }
 nav h1{
 background-color:rgb(252, 255, 246);
@@ -18,6 +27,7 @@ color: rgb(43, 43, 39);
 font-family:fantasy;
 font-weight: 100;
 letter-spacing: 2px;
+margin: 2px;
 border: 2px solid black;
 margin-top: 12px;
 padding: 12px;
@@ -26,14 +36,16 @@ nav h2{
 background-color:rgb(30, 32, 27);
 color: rgb(148, 148, 146);
 font-family: cursive;
-position: absolute;
+width: max-content;
+/* position: absolute;
 left: 82%;
-top:3%;
+top:3%; */
+margin-top: 25px;
 border: 2px solid black;
 padding: 2px;
 }
 .high{
-    margin: 12px;
+    margin-top: 49px;
     font-size: 22px;
     color: azure;
 }
@@ -42,7 +54,7 @@ display: flex;
 flex-direction: column;
 justify-content: center;
 align-items: center;
-margin-top: 20px;
+
 background-color:rgb(60, 56, 50);
 margin: 50px;
 border-radius: 22px;
@@ -143,11 +155,11 @@ text-align: center;
 
 .mainn{
     display: flex;
-    margin-top: 20px;
+ margin-left: 100px;
     justify-content: center;
     align-items: center;
     background-color:rgb(60, 56, 50);
-    margin: 50px;
+  margin-top: 15px;
     box-shadow: 2px 4px 4px rgb(12, 9, 9);
     border-radius: 22px;
     }
@@ -162,7 +174,7 @@ text-align: center;
 }
 .mainn:hover{
     background-color: rgb(34, 30, 30);
-    box-shadow: -4px 4px 4px rgb(12, 9, 9);
+    box-shadow: 4px 4px 4px rgb(12, 9, 9);
     border: 1px slid rgb(0, 0, 0);
     
 }

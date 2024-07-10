@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TypeVerse Home</title>
+    <title>TypeVerse</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -11,30 +11,64 @@
 
     <div class="container">
         <nav>
-          <a href="index.html">  <h1>Type Verse</h1> </a>
-    </nav>
+            <div class="high">High Score: <span class="hwpm">00</span> wpm</div>
 
-    <a href="index4.html">
-<div class="mainn">
-        <button class="btn">Easy</button>
+            <a href="index.html">  <h1>Type Verse</h1> </a>
+           
+            <h2 class="timer"><span id="time">60</span>sec</h2>
+        </nav>
+        <div class="cont">
         
-    </div>
-</a>
-<a href="index3.html">
-<div class="mainn">
-        <button class="btn">Medium</button>
-        
-    </div> 
-</a>
-    <a href="index2.html">
-<div class="mainn">
-   
-        <button class="btn">Hard</button>
-        
-    </div>
-</a>
+            <div class="mainn">
+                <button class="btn" onclick="runMode('easy')">Easy</button>
+            </div>
+            <div class="mainn">
+                <button class="btn" onclick="runMode('medium')">Medium</button>
+            </div>
+            <div class="mainn">
+                <button class="btn" onclick="runMode('hard')">Hard</button>
+            </div>
+        </div>
 
-</div>
+        <div class="main">
+
+            <div class="instruction">
+                <h3>Press Enter to start. </h3>
+               </div>
+      
+            <div id="type" class="type">
+
+            </div> 
+        </div>
+
+        <div class="hidden result">
+            
+            <h2>Result</h2>
+            <hr>
+         <span>WPM:</span>   <div class="wpm">----</div><hr>
+         <span>Accuracy:</span>   <div class="acc">----</div>
+           <!-- <span>Correct Words:</span> <div class="correct">----</div><hr>
+           <span>Incorrect Words:</span> <div class="incorrect">----</div> -->
+        </div>
+     
+    </div>
+    <script>
+            function runMode(m){
+         mode = m;
+      localStorage.setItem("mode", mode);
+     
+  if (mode === "easy") {
+    document.title = "Typeverse Easy Mode";
+  } else if (mode === "medium") {
+    document.title = "Typeverse Medium Mode";
+  } else if (mode === "hard") {
+    document.title = "Typeverse Hard Mode";
+  }
+  window.location.href = "index.html";
+    }
+    </script>
+    <script src="index.js">    </script>
+
 
 
     
