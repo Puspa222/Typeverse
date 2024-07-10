@@ -9,190 +9,225 @@ moreover education promotes peace and stability. it helps people understand diff
 education is also important for health and well-being. it helps people make informed decisions about their health. for example they learn about the importance of a balanced diet and regular exercise. they also learn about the dangers of smoking and substance abuse. educated people are more likely to seek medical care when they need it. they are also more likely to support public health measures such as vaccinations. this leads to healthier communities and a better quality of life for everyone.
 education also promotes gender equality. it gives everyone the chance to learn and succeed regardless of their gender. educated women are more likely to participate in the workforce and contribute to economic development. they are also more likely to have healthier families and make better decisions for their children. education empowers women and helps break the cycle of poverty and inequality.
 in summary education is the key to a better life for individuals and society. it helps us gain knowledge and skills develop values and ethics and make informed decisions. it opens up opportunities for better jobs and higher incomes. it promotes peace stability and economic growth. it improves health and well-being. it promotes gender equality and empowers people. education is essential for a better future for everyone. `;
-let start = 0;
-let end = 0;
 
-b = str.split(".");
-let text = "";
-let tarea = document.querySelector(".type");
-let ins = document.querySelector(".instruction");
-let res = document.querySelector(".result");
-tarea.setAttribute("class", "type blur");
+// Add event listener to the document once the DOM is loaded
+document.addEventListener("DOMContentLoaded", function() {
+  // Get the necessary elements
+  const tarea = document.querySelector(".type");
+  const ins = document.querySelector(".instruction");
+  const res = document.querySelector(".result");
+  const wpm = document.querySelector(".wpm");
+  const acc = document.querySelector(".acc");
+  const hw = document.querySelector(".hwpm");
+  const t = document.getElementById("time");
 
-for (i = 0; i < 15; i++) {
-  let r = Math.floor(Math.random() * b.length);
-  text += b[r] + ".";
-  c = b[r].split(" ");
-  tarea.innerHTML += "<span class='sentence'>";
-  for (k = 1; k < c.length; k++) {
-    d = c[k].split("");
-    tarea.innerHTML += "<span class='word'>";
-    for (j = 0; j < d.length; j++) {
-      tarea.innerHTML += `<letter class='untype'>${d[j]}</letter>`;
-    }
-    if (k == c.length - 1) {
-      tarea.innerHTML += "</span>";
-    } else {
-      tarea.innerHTML += `<letter class='untype'>\t</letter>`;
-      tarea.innerHTML += "</span>";
-    }
-  }
-  tarea.innerHTML += `<letter class='untype'>.</letter><letter class='untype'>\t</letter>`;
-  tarea.innerHTML += "</span>";
-}
 
-let correct = 0;
-let corr = document.querySelector(".correct");
-let incorrect = 0;
-let inco = document.querySelector(".incorrect");
-let wpm = document.querySelector(".wpm");
-let acc = document.querySelector(".acc");
-let txt = "";
+  tarea.setAttribute("class", "type hidden");
+  // Set initial values
+  let start = 0;
+  let end = 0;
+  let count = 60;
+  let txt = "";
+  let correct = 0;
+  let incorrect = 0;
+  let incc = 0;
+  let inpp = 0;
+  let worc = 0;
+  let iii = 0;
+  let ccc = 0;
+  let twor = 0;
 
-function findKeyPressed(event) {
-  if (start == 1) {
-    if (event.key === "Backspace") {
-      txt = txt.slice(0, -1);
-      h[txt.length].setAttribute("class", "untype active");
-      h[txt.length + 1].setAttribute("class", "untype");
-    } else if (event.key === " ") {
-      txt += " ";
-      for (i = txt.length - 1; i < txt.length; i++) {
-        if (event.key === tarea.innerText[i]) {
-          wco();
-        } else {
-          if (event.key === " ") {
-            wio(0);
-          } else {
-            wio(1);
-          }
-        }
+  // Split the text into sentences
+  const sentences = str.split(".");
+
+  // Generate the text with random sentences
+  for (let i = 0; i < 15; i++) {
+    const randomIndex = Math.floor(Math.random() * sentences.length);
+    const sentence = sentences[randomIndex];
+    const words = sentence.split(" ");
+
+    tarea.innerHTML += "<span class='sentence'>";
+    for (let k = 1; k < words.length; k++) {
+      const word = words[k];
+      const letters = word.split("");
+
+      tarea.innerHTML += "<span class='word'>";
+      for (let j = 0; j < letters.length; j++) {
+        tarea.innerHTML += `<letter class='untype'>${letters[j]}</letter>`;
       }
-    } else if (event.key.length > 1) {
-      txt = txt;
-    } else {
-      txt += event.key;
-      for (i = txt.length - 1; i < txt.length; i++) {
-        if (event.key === tarea.innerText[i]) {
+      if (k === words.length - 1) {
+        tarea.innerHTML += "</span>";
+      } else {
+        tarea.innerHTML += `<letter class='untype'>\t</letter>`;
+        tarea.innerHTML += "</span>";
+      }
+    }
+    tarea.innerHTML += `<letter class='untype'>.</letter><letter class='untype'>\t</letter>`;
+    tarea.innerHTML += "</span>";
+  }
+
+  // Get all the untyped letters
+  const untypedLetters = document.querySelectorAll(".untype");
+
+  // Set the first letter as active
+  untypedLetters[txt.length].setAttribute("class", "untype active");
+
+  // Function to handle key press event
+  function findKeyPressed(event) {
+    if (start === 1) {
+      const typedChar = event.key;
+      const currentChar = tarea.innerText[txt.length];
+
+      if (typedChar === " ") {
+        txt += " ";
+        if (typedChar === currentChar) {
+          wco();
+        } else if (typedChar === " ") {
+          // Handle incorrect space
+          wio(1)
+        } else {
+          // Handle incorrect character
+          wio(0);
+        }
+        
+      } else if (typedChar.length === 1) {
+        txt += typedChar;
+        if (typedChar === currentChar) {
           co();
         } else {
-          if (tarea.innerText[i] === " ") {
-            io(0);
-          } else {
+          if (currentChar === " ") {
             io(1);
+          } else {
+            // Handle incorrect character
+            io(0);
           }
         }
-      }
-    }
-  } else {
-    if (event.key === "Enter" && end === 0) {
-      start = 1;
-      starttime();
-      ins.setAttribute("class", "instruction hidden");
-      tarea.setAttribute("class", "type");
-    }
-  }
-}
-let h = document.querySelectorAll(".untype");
-function co() {
-  h[txt.length].setAttribute("class", "untype active");
-  h[txt.length - 1].setAttribute("class", "c");
-}
-function io(b) {
-  h[txt.length].setAttribute("class", "untype active");
-  if (b == 1) {
-    h[txt.length - 1].setAttribute("class", "i");
-  } else {
-    h[txt.length - 1].setAttribute("class", "i wi wordi");
-  }
-}
-function wco() {
-  h[txt.length].setAttribute("class", "untype active");
-  h[txt.length - 1].setAttribute("class", "c wordc");
-  // h[txt.length-1].setAttribute("class","wc");
-}
-function wio(b) {
-  h[txt.length].setAttribute("class", "untype active");
+      } else if (typedChar === "Backspace") {
+        // Handle backspace
+        if (txt.length > 0) {
+          txt = txt.slice(0, -1);
 
-  if (b == 1) {
-    h[txt.length - 1].setAttribute("class", "i wi");
-  } else {
-    h[txt.length - 1].setAttribute("class", "i wordi");
-  }
-}
-t = document.getElementById("time");
-count = 60;
-function starttime() {
-  const interval = setInterval(timer, 1000);
-  function timer() {
-    count--;
-    if (count < -1) {
-      clearInterval(interval);
-    } else if (count === -1) {
-      start = 0;
-      end = 1;
-      cal();
-      wpm.innerHTML = correct;
-      highs(correct);
-      acc.innerText = parseInt((ccc * 100) / (ccc + iii)) + "%";
-      res.setAttribute("class", "result update");
-      tarea.setAttribute("class", "type dem hidden");
-      ins.setAttribute("class", "instruction rel");
-      ins.innerHTML = "Refresh the browser to restart.";
-      clearInterval(interval);
-    } else {
-      t.innerText = count;
-    }
-  }
-}
-let hw = document.querySelector(".hwpm");
-hw.innerHTML = localStorage.getItem("hwpm");
-let incc = 0;
-let inpp = 0;
-let worc = 0;
-let iii = 0;
-let ccc = 0;
-let twor = 0;
-function cal() {
-
-  let cw = document.querySelectorAll(`.word~.c,.word~.i`);
-
-  for (i = 0; i < cw.length; i++) {
-    if (
-      cw[i].className == "c wordc" ||
-      cw[i].className == "c wordi" ||
-      cw[i].className == "c wi wordi"
-    ) {
-      worc = worc + 1;
-      if (worc > twor) {
-        if (incc == 0 && inpp > 0) {
-          ++correct;
-        } else {
-          ++incorrect;
+          untype();
         }
-        incc = 0;
-        inpp = 0;
+        
+      } else {
+        txt = txt;
+      }}
+    else {
+      if (event.key === "Enter" && end === 0) {
+        start = 1;
+        starttime();
+        ins.setAttribute("class", "instruction hidden");
+        tarea.setAttribute("class", "type");
       }
-      twor = worc;
-    }
-    if (cw[i].className == "i") {
-      ++incc;
-      ++iii;
-    }
-    if (cw[i].className == "c") {
-      ++inpp;
-      ++ccc;
     }
   }
 
- 
-}
-function highs(s) {
-  if (localStorage.getItem("hwpm") < s) {
-    localStorage.setItem("hwpm", s);
+  // Function to handle correct character
+  function co() {
+    untypedLetters[txt.length].setAttribute("class", "untype active");
+    untypedLetters[txt.length - 1].setAttribute("class", "c");
   }
-  hw.innerHTML = localStorage.getItem("hwpm");
-}
-h[txt.length].setAttribute("class", "untype active");
 
-document.addEventListener("keydown", findKeyPressed);
+  // Function to handle incorrect character or space
+  function io(b) {
+    untypedLetters[txt.length].setAttribute("class", "untype active");
+    if (b===1) {
+      untypedLetters[txt.length - 1].setAttribute("class", "i wi wordi");
+    } else {
+      untypedLetters[txt.length - 1].setAttribute("class", "i ");
+    }
+  }
+
+  // Function to handle correct word
+  function wco() {
+    untypedLetters[txt.length].setAttribute("class", "untype active");
+    untypedLetters[txt.length - 1].setAttribute("class", "c wordc");
+  }
+
+  // Function to handle incorrect word
+  function wio(b) {
+    untypedLetters[txt.length].setAttribute("class", "untype active");
+    if (b === 1) {
+      untypedLetters[txt.length - 1].setAttribute("class", "i");
+    } else {
+      untypedLetters[txt.length - 1].setAttribute("class", "i");
+    }
+  }
+
+  // Function to handle backspace
+  function untype() {
+    untypedLetters[txt.length ].setAttribute("class", "untype");
+    untypedLetters[txt.length ].setAttribute("class", "untype active");
+    untypedLetters[txt.length + 1].setAttribute("class", "untype");
+  }
+
+  // Function to start the timer
+  function starttime() {
+    const interval = setInterval(timer, 1000);
+    function timer() {
+      count--;
+      if (count < -1) {
+        clearInterval(interval);
+      } else if (count === -1) {
+        start = 0;
+        end = 1;
+        cal();
+        wpm.innerHTML = correct;
+        highs(correct);
+        acc.innerText = parseInt((ccc * 100) / (ccc + iii)) + "%";
+        res.setAttribute("class", "result update");
+        tarea.setAttribute("class", "type dem hidden");
+        ins.setAttribute("class", "instruction rel");
+        ins.innerHTML = "Refresh the browser to restart.";
+        clearInterval(interval);
+      } else {
+        t.innerText = count;
+      }
+    }
+  }
+
+  // Function to calculate the statistics
+  function cal() {
+    const cw = document.querySelectorAll(`.word~.c,.word~.i`);
+
+    for (let i = 0; i < cw.length; i++) {
+      if (
+        cw[i].className === "c wordc" ||
+        cw[i].className === "c wordi" ||
+        cw[i].className === "c wi wordi"
+      ) {
+        worc = worc + 1;
+        if (worc > twor) {
+          if (incc === 0 && inpp > 0) {
+            ++correct;
+          } else {
+            ++incorrect;
+          }
+          incc = 0;
+          inpp = 0;
+        }
+        twor = worc;
+      }
+      if (cw[i].className === "i") {
+        ++incc;
+        ++iii;
+      }
+      if (cw[i].className === "c") {
+        ++inpp;
+        ++ccc;
+      }
+    }
+  }
+
+  // Function to update the high score
+  function highs(s) {
+    if (localStorage.getItem("hwpm") < s) {
+      localStorage.setItem("hwpm", s);
+    }
+    hw.innerHTML = localStorage.getItem("hwpm");
+  }
+
+  // Add event listener for keydown event
+  document.addEventListener("keydown", findKeyPressed);
+});
